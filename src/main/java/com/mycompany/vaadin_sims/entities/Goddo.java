@@ -11,7 +11,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
-
 /**
  *
  * @author Auwal Usman
@@ -24,8 +23,9 @@ public class Goddo extends AbstractBingel{
     
     private String address;
     
-    @Email
     @NotEmpty
+    @Email
+    @Column(unique=true)
     private String email;
     
     @Pattern(regexp="0\\d{10}", message="invalid phone number")

@@ -9,8 +9,6 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
 
 /**
  *
@@ -21,21 +19,20 @@ public class FormGoddo extends FormLayout{
     private TextField phone = new TextField();
     private TextField address = new TextField();
     
-    Binder<Goddo> binder = new BeanValidationBinder<>(Goddo.class);
+    BeanValidationBinder<Goddo> binder = new BeanValidationBinder<>(Goddo.class);
     
     public FormGoddo(){
-        binder.setBean(new Goddo());
-        
+        binder.bindInstanceFields(this);
         setResponsiveSteps(new ResponsiveStep("0", 1));
         
         addFormItem(email, "Email");
         addFormItem(phone, "Phone");
         addFormItem(address, "Address");
         email.setSizeFull();
+        email.setErrorMessage("Inavlid Email");
+        email.getElement().setAttribute("name", "email");
         phone.setSizeFull();
         address.setSizeFull();
-        
-        binder.bindInstanceFields(this);
     }
     
     public Goddo getGoddo(){
@@ -46,7 +43,6 @@ public class FormGoddo extends FormLayout{
             binder.setBean(new Goddo());
         }else{
             binder.setBean(goddo);
-        }
-        
+        }     
     }
 }

@@ -15,7 +15,6 @@ com\mycompany\vaadin_sims\forms\FormBingel$DeleteEvent.class
 com\mycompany\vaadin_sims\entities\Gender.class
 com\mycompany\vaadin_sims\repositories\BingelRepository.class
 com\mycompany\vaadin_sims\forms\FormBingel$SaveEvent.class
-com\mycompany\vaadin_sims\views\MainProfile.class
 com\mycompany\vaadin_sims\entities\Goddo.class
 com\mycompany\vaadin_sims\forms\FormBingel$CloseEvent.class
 com\mycompany\vaadin_sims\views\ProfileGuardian.class

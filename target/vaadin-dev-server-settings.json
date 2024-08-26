@@ -11,7 +11,7 @@
   "jarResourcesFolder": "C:/Users/Auwal Usman/Documents/NetBeansProjects/vaadin_sims/./frontend/generated/jar-resources",
   "themeName": "",
   "clientServiceWorkerSource": "C:\\Users\\Auwal Usman\\Documents\\NetBeansProjects\\vaadin_sims\\target\\sw.ts",
-  "pwaEnabled": false,
-  "offlineEnabled": false,
+  "pwaEnabled": true,
+  "offlineEnabled": true,
   "offlinePath": "'offline.html'"
 }

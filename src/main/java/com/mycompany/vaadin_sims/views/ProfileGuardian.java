@@ -9,13 +9,10 @@ import com.mycompany.vaadin_sims.entities.TypeOfBingel;
 import com.mycompany.vaadin_sims.forms.FormBingel;
 import com.mycompany.vaadin_sims.services.SimsService;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.applayout.AppLayout;
-import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
@@ -24,7 +21,7 @@ import com.vaadin.flow.router.Route;
  *
  * @author Auwal Usman
  */
-@Route(value="parent_profile", layout=MainProfile.class)
+@Route(value="guardian_view", layout=MainView.class)
 public class ProfileGuardian extends VerticalLayout{
     private Bingel bingel;
     private Grid<Bingel> grid = new Grid<>(Bingel.class);
@@ -69,13 +66,10 @@ public class ProfileGuardian extends VerticalLayout{
     public void setParent(Bingel bingel){
         this.bingel = bingel;
         
-        configureForm();
         configureGrid();
+        configureForm();
         
-        configureNavBar();
-        configureDrawer();
-        
-        add(addNewChild(), getMainContent());
+        add(getMenu(), getMainContent());
     }
     public Component getMainContent(){
         HorizontalLayout content = new HorizontalLayout();
@@ -85,55 +79,34 @@ public class ProfileGuardian extends VerticalLayout{
         
         return content;
     }
-    
     public void closeEditor(){
         form.setBingel(null);
         grid.asSingleSelect().clear();
         form.setVisible(false);
     }
-    public Component addNewChild(){
-        HorizontalLayout content = new HorizontalLayout();
-        
-        form.setVisible(true);
+    public void addNewChild(){
         Bingel newBingel = new Bingel();
         newBingel.setBingel(bingel);
         newBingel.setType(TypeOfBingel.STUDENT.getType());
-        form.setBingel(newBingel);
+        showEditor(newBingel);
+    }
+    public Component getMenu(){
+        HorizontalLayout content = new HorizontalLayout();
         
+        H3 fullName = new H3(bingel.getFirstName() + " " + bingel.getLastName() + " " + bingel.getOtherNames());
         Button btAddNew = new Button("New Child", VaadinIcon.PLUS.create(), event -> addNewChild());
-        
-        content.add(btAddNew);
+        Button editProfile = new Button("Edit Profile", VaadinIcon.EDIT.create(),
+                event -> getUI()
+                        .ifPresent(ui -> ui.navigate(EditGuardian.class)
+                        .ifPresent(edit -> edit.setBingel(bingel)))
+        );
+        content.add(fullName, btAddNew, editProfile);
+        content.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         
         return content;
     }
     public void showEditor(Bingel bingel){
         form.setVisible(true);
         form.setBingel(bingel);
-    }
-    
-    public void configureNavBar(){
-        HorizontalLayout content = new HorizontalLayout();
-        H4 fullname = new H4(bingel.getFirstName() + " " + bingel.getLastName() + " " + bingel.getOtherNames());
-        content.setWidthFull();
-        content.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        content.add(fullname);
-        
-        DrawerToggle toggle = new DrawerToggle();
-        
-        AppLayout parent = (AppLayout)this.getParent().get();
-        
-        parent.addToNavbar(toggle, content);
-    }
-    public void configureDrawer(){
-        Button btGuardian = new Button("Guardian List", VaadinIcon.LIST.create(), event -> getUI().ifPresent(ui -> ui.navigate(GuardianList.class)));
-        Button editProfile = new Button("Edit Profile", VaadinIcon.EDIT.create(),
-                event -> getUI()
-                        .ifPresent(ui -> ui.navigate(EditGuardian.class)
-                        .ifPresent(edit -> edit.setBingel(bingel)))
-        );
-        
-        AppLayout parent = (AppLayout)this.getParent().get();
-        
-        parent.addToDrawer(btGuardian, editProfile);
     }
 }
