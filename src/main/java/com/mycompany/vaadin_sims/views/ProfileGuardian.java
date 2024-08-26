@@ -15,6 +15,7 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 
 /**
@@ -34,6 +35,11 @@ public class ProfileGuardian extends VerticalLayout{
     
     public void configureGrid(){
         grid.setColumns("id", "firstName", "lastName");
+        grid.addColumn(new ComponentRenderer<>(bingel -> {
+            Button btOpen = new Button("Open Profile");
+            
+            return btOpen;
+        })).setHeader("Profile");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         grid.asSingleSelect().addValueChangeListener(event -> {
             showEditor(event.getValue());
@@ -98,7 +104,8 @@ public class ProfileGuardian extends VerticalLayout{
         Button editProfile = new Button("Edit Profile", VaadinIcon.EDIT.create(),
                 event -> getUI()
                         .ifPresent(ui -> ui.navigate(EditGuardian.class)
-                        .ifPresent(edit -> edit.setBingel(bingel)))
+                            .ifPresent(edit -> edit.setBingel(bingel))
+                        )
         );
         content.add(fullName, btAddNew, editProfile);
         content.setDefaultVerticalComponentAlignment(Alignment.CENTER);

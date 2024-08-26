@@ -1,3 +1,4 @@
+C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\ApplicationLetter.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\forms\FormBingel.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\entities\TypeOfBingel.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\BasicData.java
@@ -5,6 +6,7 @@ C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\my
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\ProfileGuardian.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\entities\Gender.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\EditGuardian.java
+C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\SchoolInfoView.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\MainView.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\Application.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\repositories\GoddoRepository.java
@@ -12,6 +14,7 @@ C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\my
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\entities\Goddo.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\forms\FormGoddo.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\entities\Parent.java
+C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\entities\SchoolInfo.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\repositories\ParentRepository.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\repositories\BingelRepository.java
 C:\Users\Auwal Usman\Documents\NetBeansProjects\vaadin_sims\src\main\java\com\mycompany\vaadin_sims\views\GuardianList.java

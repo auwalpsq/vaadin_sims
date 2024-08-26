@@ -10,8 +10,11 @@ com\mycompany\vaadin_sims\entities\TypeOfBingel.class
 com\mycompany\vaadin_sims\forms\FormGoddo.class
 com\mycompany\vaadin_sims\forms\FormBingel.class
 com\mycompany\vaadin_sims\services\SimsService.class
+com\mycompany\vaadin_sims\entities\SchoolInfo.class
+com\mycompany\vaadin_sims\views\SchoolInfoView.class
 com\mycompany\vaadin_sims\views\MainView.class
 com\mycompany\vaadin_sims\forms\FormBingel$DeleteEvent.class
+com\mycompany\vaadin_sims\views\ApplicationLetter.class
 com\mycompany\vaadin_sims\entities\Gender.class
 com\mycompany\vaadin_sims\repositories\BingelRepository.class
 com\mycompany\vaadin_sims\forms\FormBingel$SaveEvent.class
