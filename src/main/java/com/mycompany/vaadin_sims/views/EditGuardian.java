@@ -11,6 +11,7 @@ import com.mycompany.vaadin_sims.entities.Goddo;
 import com.mycompany.vaadin_sims.entities.Parent;
 import com.mycompany.vaadin_sims.services.SimsService;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H3;
@@ -51,8 +52,8 @@ public class EditGuardian extends VerticalLayout{
         FormGoddo formGoddo;
         FormParent formParent;
         
-        Goddo goddo = service.findBingelGoddo(bingel);
-        Parent parent = service.findBingelParent(bingel);
+        Goddo goddo = service.findGoddo(bingel);
+        Parent parent = service.findParent(bingel);
         
         basicData = new BasicData(bingel);
         
@@ -72,6 +73,7 @@ public class EditGuardian extends VerticalLayout{
             
             Notification notification = Notification.show("Profile Updated", 5000, Notification.Position.TOP_CENTER);
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+            UI.getCurrent().navigate("guardian_view");
         });
         
         return content;

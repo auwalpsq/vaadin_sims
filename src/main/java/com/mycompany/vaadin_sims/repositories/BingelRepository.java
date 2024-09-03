@@ -14,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface BingelRepository extends JpaRepository<Bingel, Long>{
     List<Bingel> findByType(String type);
+    Bingel findByParent(Bingel bingel);
 }

@@ -37,9 +37,9 @@ public class Bingel extends AbstractBingel{
     private LocalDate registrationDate;
     
     @ManyToOne
-    Bingel bingel;
+    Bingel parent;
     
-    @OneToMany(mappedBy="bingel", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
     List<Bingel> bikkoi = new LinkedList<>();
     
     public Bingel(){registrationDate = LocalDate.now();}
@@ -47,8 +47,8 @@ public class Bingel extends AbstractBingel{
     public List<Bingel> getBikkoi(){return bikkoi;}
     public void setBikkoi(List<Bingel> bikkoi){this.bikkoi = bikkoi;}
     
-    public Bingel getBingel(){return bingel;}
-    public void setBingel(Bingel bingel){this.bingel = bingel;}
+    public Bingel getParent(){return parent;}
+    public void setParent(Bingel parent){this.parent = parent;}
     
     public LocalDate getRegistrationDate(){return registrationDate;}
     public String getFirstName(){return firstName;}

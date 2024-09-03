@@ -50,6 +50,7 @@ public class SimsService {
     public Optional<Bingel> findBingelById(Long id){return bingelRepository.findById(id);}
     public List<Bingel> findBingelByType(String type){return bingelRepository.findByType(type);}
     public List<Bingel> findAllBikkoi(){return bingelRepository.findAll();}
-    public Goddo findBingelGoddo(Bingel bingel){return goddoRepository.findByBingel(bingel);}
-    public Parent findBingelParent(Bingel bingel){return parentRepository.findByBingel(bingel);}
+    public Goddo findGoddo(Bingel bingel){return goddoRepository.findByBingel(bingel);}
+    public Parent findParent(Bingel bingel){return parentRepository.findByBingel(bingel);}
+    public Bingel findGuardian(Bingel bingel){return bingelRepository.findByParent(bingel);}
 }

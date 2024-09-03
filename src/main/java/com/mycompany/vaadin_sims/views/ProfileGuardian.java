@@ -9,10 +9,13 @@ import com.mycompany.vaadin_sims.entities.TypeOfBingel;
 import com.mycompany.vaadin_sims.forms.FormBingel;
 import com.mycompany.vaadin_sims.services.SimsService;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
@@ -24,22 +27,29 @@ import com.vaadin.flow.router.Route;
  */
 @Route(value="guardian_view", layout=MainView.class)
 public class ProfileGuardian extends VerticalLayout{
-    private Bingel bingel;
+    private static Bingel bingel;
     private Grid<Bingel> grid = new Grid<>(Bingel.class);
     private FormBingel form;
     SimsService service;
     
     public ProfileGuardian(SimsService service){
         this.service = service;
+        
+        if(bingel != null){
+            addData();
+        }
     }
     
     public void configureGrid(){
         grid.setColumns("id", "firstName", "lastName");
         grid.addColumn(new ComponentRenderer<>(bingel -> {
-            Button btOpen = new Button("Open Profile");
-            
-            return btOpen;
-        })).setHeader("Profile");
+            Anchor anchor = new Anchor("/application_letter", "Open Application Letter");
+            anchor.getElement().setAttribute("target", "_blank");
+            anchor.addFocusListener(event -> {
+                ApplicationLetter.bingel = bingel;
+            });
+            return anchor;
+            })).setHeader("Application Letter");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         grid.asSingleSelect().addValueChangeListener(event -> {
             showEditor(event.getValue());
@@ -71,7 +81,10 @@ public class ProfileGuardian extends VerticalLayout{
     }
     public void setParent(Bingel bingel){
         this.bingel = bingel;
-        
+        addData();
+    }
+    public void addData(){
+        this.removeAll();
         configureGrid();
         configureForm();
         
@@ -92,7 +105,7 @@ public class ProfileGuardian extends VerticalLayout{
     }
     public void addNewChild(){
         Bingel newBingel = new Bingel();
-        newBingel.setBingel(bingel);
+        newBingel.setParent(bingel);
         newBingel.setType(TypeOfBingel.STUDENT.getType());
         showEditor(newBingel);
     }
