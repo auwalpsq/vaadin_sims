@@ -9,8 +9,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.H4;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Span;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
@@ -25,31 +23,20 @@ public class SchoolInfoView extends VerticalLayout{
         this.setSpacing(false);
         
         H3 name = new H3(SchoolInfo.NAME.getData());
-        H4 address = new H4(SchoolInfo.ADDRESS.getData());
-        
-        VerticalLayout header = new VerticalLayout();
-        header.setSpacing(false);
-        header.setAlignItems(Alignment.CENTER);
-        header.add(name, address);
-        
-        
-        Image logo = new Image("images/passport.jpg", "logo to appear here");
+        H4 address1 = new H4(SchoolInfo.ADDRESS_1.getData());
+        H4 address2 = new H4(SchoolInfo.ADDRESS_2.getData());
+        Image logo = new Image(SchoolInfo.LOGO_PATH.getData(), "logo to appear here");
         logo.setHeight("100px");
-        
-        logo.addClassNames(LumoUtility.Border.ALL);
-        logo.getStyle().set("border-radius", "60%");
-        
-        HorizontalLayout title = new HorizontalLayout();
-        title.setWidthFull();
-        
-        title.add(logo, header);
-        add(title);
-        
         Span email = new Span(SchoolInfo.EMAIL.getData());
         Span phone = new Span(SchoolInfo.PHONE.getData());
         
-        add(email, phone);
-        this.setAlignSelf(FlexComponent.Alignment.END, email);
-        this.setAlignSelf(FlexComponent.Alignment.END, phone);
+
+        this.setSpacing(false);
+        this.setAlignItems(Alignment.CENTER);
+
+        logo.addClassNames(LumoUtility.Border.ALL);
+        logo.getStyle().set("border-radius", "60%");
+        
+        add(logo, name, address1, address2, email, phone);
     }
 }

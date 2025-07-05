@@ -4,7 +4,6 @@
  */
 package com.mycompany.vaadin_sims.repositories;
 
-import com.mycompany.vaadin_sims.entities.Bingel;
 import com.mycompany.vaadin_sims.entities.Parent;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,5 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Auwal Usman
  */
 public interface ParentRepository extends JpaRepository<Parent, Long>{
-    Parent findByBingel(Bingel bingel);
+    
 }

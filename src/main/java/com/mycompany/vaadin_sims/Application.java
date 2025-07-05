@@ -3,7 +3,6 @@ package com.mycompany.vaadin_sims;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -19,7 +18,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
         offlineResources={"./images/offline.png"}
 )
 @SpringBootApplication
-@Theme(variant=Lumo.LIGHT)
+@Theme(value="sims_style")
 public class Application extends SpringBootServletInitializer implements AppShellConfigurator{
 
     public static void main(String[] args) {

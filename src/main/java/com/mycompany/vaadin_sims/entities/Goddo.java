@@ -6,7 +6,6 @@ package com.mycompany.vaadin_sims.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
@@ -17,10 +16,6 @@ import jakarta.validation.constraints.Pattern;
  */
 @Entity
 public class Goddo extends AbstractBingel{
-    
-    @OneToOne
-    private Bingel bingel;
-    
     private String address;
     
     @NotEmpty
@@ -31,9 +26,6 @@ public class Goddo extends AbstractBingel{
     @Pattern(regexp="0\\d{10}", message="invalid phone number")
     @Column(unique=true)
     private String phone;
-    
-    public Bingel getBingel(){return bingel;}
-    public void setBingel(Bingel bingel){this.bingel = bingel;}
     
     public String getAddress(){return address;}
     public void setAddress(String address){this.address = address;}

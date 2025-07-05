@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Application<vaadin_sims>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.mycompany.vaadin_sims.Application",
+            "projectName": "vaadin_sims",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

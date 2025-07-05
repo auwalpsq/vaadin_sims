@@ -5,7 +5,6 @@
 package com.mycompany.vaadin_sims.entities;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 
 /**
  *
@@ -16,12 +15,11 @@ public class Parent extends AbstractBingel{
     
     private String occupation;
     
-    @OneToOne
-    private Bingel bingel;
+    private String placeOfWork;
     
     public String getOccupation(){return occupation;}
     public void setOccupation(String occupation){this.occupation = occupation;}
     
-    public Bingel getBingel(){return bingel;}
-    public void setBingel(Bingel bingel){this.bingel = bingel;}
+    public String getPlaceOfWork(){return placeOfWork;}
+    public void setPlaceOfWork(String placeOfWork){this.placeOfWork = placeOfWork;}
 }

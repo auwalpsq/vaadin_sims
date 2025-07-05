@@ -9,10 +9,13 @@ package com.mycompany.vaadin_sims.entities;
  * @author Auwal Usman
  */
 public enum SchoolInfo {
-    NAME("El-kanemi College of Islamic Theology, Yola"), 
-    ADDRESS("Byepass, Yola, Adamawa State"),
-    EMAIL("elkanemi@gmail.com"),
-    PHONE("080123456789");
+    NAME("AR-RIYADH GENERIC SCHOOLS"), 
+    APP("STUDENT INFORMATION MANAGEMENT SYSTEM"),
+    ADDRESS_1("SARDAUNA STREET, ADJACENT TO L.E.A PRIMARY SCHOOL"),
+    ADDRESS_2("ANGUWAR FULANI, DAKWA, NIGER STATE"),
+    EMAIL("email"),
+    PHONE("phone"),
+    LOGO_PATH("images/logo.jpeg");
     
     private String data;
     

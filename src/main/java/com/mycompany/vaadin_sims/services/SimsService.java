@@ -29,7 +29,13 @@ public class SimsService {
         this.goddoRepository = goddoRepository;
         this.parentRepository = parentRepository;
     }
-    
+    public List<Bingel> findAllBikkoi(String filter, String type){
+        if(filter == null || filter.isEmpty()){
+            return findBingelByType(type);
+        }else{
+            return bingelRepository.search(filter, type);
+        }
+    }
     public void saveBingel(Bingel bingel){
         bingelRepository.save(bingel);
     }
@@ -49,8 +55,5 @@ public class SimsService {
     }
     public Optional<Bingel> findBingelById(Long id){return bingelRepository.findById(id);}
     public List<Bingel> findBingelByType(String type){return bingelRepository.findByType(type);}
-    public List<Bingel> findAllBikkoi(){return bingelRepository.findAll();}
-    public Goddo findGoddo(Bingel bingel){return goddoRepository.findByBingel(bingel);}
-    public Parent findParent(Bingel bingel){return parentRepository.findByBingel(bingel);}
-    public Bingel findGuardian(Bingel bingel){return bingelRepository.findByParent(bingel);}
+    
 }

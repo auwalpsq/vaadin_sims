@@ -4,10 +4,12 @@
  */
 package com.mycompany.vaadin_sims.entities;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.LinkedList;
@@ -36,21 +38,48 @@ public class Bingel extends AbstractBingel{
     
     private LocalDate registrationDate;
     
-    @ManyToOne
-    Bingel parent;
+    private LocalDate birthDate;
     
-    @OneToMany(mappedBy="parent", fetch=FetchType.EAGER)
+    private String religion;
+    
+    private String nationality;
+    
+    @ManyToOne
+    Bingel guardian;
+    
+    @OneToMany(mappedBy="guardian", fetch=FetchType.EAGER, orphanRemoval=true, cascade=CascadeType.ALL)
     List<Bingel> bikkoi = new LinkedList<>();
     
-    public Bingel(){registrationDate = LocalDate.now();}
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+    private Parent parent;
+    
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+    private Goddo goddo;
+    
+    @OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
+    private Applicant applicant;
+    
+    public Bingel(){
+        registrationDate = LocalDate.now();
+    }
+    
+    public Parent getParent(){return parent;}
+    public void setParent(Parent parent){this.parent = parent;}
+    
+    public Goddo getGoddo(){return goddo;}
+    public void setGoddo(Goddo goddo){this.goddo = goddo;}
+    
+    public Applicant getApplicant(){return applicant;}
+    public void setApplicant(Applicant applicant){this.applicant = applicant;}
     
     public List<Bingel> getBikkoi(){return bikkoi;}
     public void setBikkoi(List<Bingel> bikkoi){this.bikkoi = bikkoi;}
     
-    public Bingel getParent(){return parent;}
-    public void setParent(Bingel parent){this.parent = parent;}
+    public Bingel getGuardian(){return guardian;}
+    public void setGuardian(Bingel guardian){this.guardian = guardian;}
     
     public LocalDate getRegistrationDate(){return registrationDate;}
+    
     public String getFirstName(){return firstName;}
     public void setFirstName(String firstName){this.firstName = firstName;}
     
@@ -65,4 +94,13 @@ public class Bingel extends AbstractBingel{
     
     public String getType(){return type;}
     public void setType(String type){this.type = type;}
+    
+    public LocalDate getBirthDate(){return birthDate;}
+    public void setBirthDate(LocalDate birthDate){this.birthDate = birthDate;}
+    
+    public String getReligion(){return religion;}
+    public void setReligion(String religion){this.religion = religion;}
+    
+    public String getNationality(){return nationality;}
+    public void setNationality(String nationality){this.nationality = nationality;}
 }

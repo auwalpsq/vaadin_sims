@@ -4,7 +4,6 @@
  */
 package com.mycompany.vaadin_sims.repositories;
 
-import com.mycompany.vaadin_sims.entities.Bingel;
 import com.mycompany.vaadin_sims.entities.Goddo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,6 +12,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Auwal Usman
  */
 public interface GoddoRepository extends JpaRepository<Goddo, Long>{
-    Goddo findByBingel(Bingel bingel);
+   
     
 }

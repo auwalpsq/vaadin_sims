@@ -6,20 +6,21 @@ package com.mycompany.vaadin_sims.views;
 
 import com.mycompany.vaadin_sims.entities.Bingel;
 import com.mycompany.vaadin_sims.entities.TypeOfBingel;
-import com.mycompany.vaadin_sims.forms.FormBingel;
+import com.mycompany.vaadin_sims.forms.GeneralForm;
+import com.mycompany.vaadin_sims.services.ApplicantId;
+import com.mycompany.vaadin_sims.services.GuardianId;
 import com.mycompany.vaadin_sims.services.SimsService;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -27,17 +28,28 @@ import com.vaadin.flow.router.Route;
  */
 @Route(value="guardian_view", layout=MainView.class)
 public class ProfileGuardian extends VerticalLayout{
-    private static Bingel bingel;
+    private Bingel bingel;
     private Grid<Bingel> grid = new Grid<>(Bingel.class);
-    private FormBingel form;
-    SimsService service;
+    private GeneralForm form;
+    private ApplicantId applicantId;
+    private GuardianId guardianId;
+    private SimsService service;
     
-    public ProfileGuardian(SimsService service){
+    private TabSheet tabs = new TabSheet();
+    
+    public ProfileGuardian(SimsService service, @Autowired GuardianId guardianId, @Autowired ApplicantId applicantId){
         this.service = service;
+        bingel = service.findBingelById(guardianId.getId()).get();
+        this.applicantId = applicantId;
+        this.guardianId = guardianId;
         
-        if(bingel != null){
-            addData();
-        }
+        configureGrid();
+        configureForm();
+        
+        tabs.setSizeFull();
+        tabs.add("Children", getChildrenTab());
+        tabs.add("Edit Guardian", getEditGuardianTab());
+        add(tabs);
     }
     
     public void configureGrid(){
@@ -45,33 +57,40 @@ public class ProfileGuardian extends VerticalLayout{
         grid.addColumn(new ComponentRenderer<>(bingel -> {
             Anchor anchor = new Anchor("/application_letter", "Open Application Letter");
             anchor.getElement().setAttribute("target", "_blank");
-            anchor.addFocusListener(event -> {
-                ApplicationLetter.bingel = bingel;
-            });
+            anchor.addFocusListener(e -> {applicantId.setId(bingel.getId());});
             return anchor;
+            
             })).setHeader("Application Letter");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         grid.asSingleSelect().addValueChangeListener(event -> {
             showEditor(event.getValue());
         });
-        
+        grid.addColumn(new ComponentRenderer<>(bingel -> {
+            Button btMore = new Button("Open Folder");
+            btMore.addClickListener(event -> {
+                applicantId.setId(bingel.getId());
+                getUI().ifPresent(ui -> ui.navigate(Edit.class).ifPresent(edit -> edit.editBingel()));
+            });
+            return btMore;
+        })).setHeader("More");
         updateList();
     }
     public void configureForm(){
-        form = new FormBingel();
+        form = new GeneralForm();
+        form.newEntry();
         form.setWidth("25em");
         closeEditor();
         
-        form.addListener(FormBingel.SaveEvent.class, this::saveBingel);
-        form.addListener(FormBingel.CloseEvent.class, e -> closeEditor());
-        form.addListener(FormBingel.DeleteEvent.class, this::deleteBingel);
+        form.addListener(GeneralForm.SaveEvent.class, this::saveBingel);
+        form.addListener(GeneralForm.CloseEvent.class, e -> closeEditor());
+        form.addListener(GeneralForm.DeleteEvent.class, this::deleteBingel);
     }
-    public void saveBingel(FormBingel.SaveEvent event){
+    public void saveBingel(GeneralForm.SaveEvent event){
         service.saveBingel(event.getBingel());
         updateList();
         addNewChild();
     }
-    public void deleteBingel(FormBingel.DeleteEvent event){
+    public void deleteBingel(GeneralForm.DeleteEvent event){
         service.deleteBingel(event.getBingel());
         updateList();
         addNewChild();
@@ -79,16 +98,18 @@ public class ProfileGuardian extends VerticalLayout{
     public void updateList(){
         grid.setItems(service.findBingelById(bingel.getId()).get().getBikkoi());
     }
-    public void setParent(Bingel bingel){
-        this.bingel = bingel;
-        addData();
-    }
-    public void addData(){
-        this.removeAll();
-        configureGrid();
-        configureForm();
+    
+    public Component getChildrenTab(){
+        VerticalLayout layout = new VerticalLayout();
+        layout.add(getMenu(), getMainContent());
         
-        add(getMenu(), getMainContent());
+        return layout;
+    }
+    public Component getEditGuardianTab(){
+        Edit edit = new Edit(service, applicantId, guardianId);
+        edit.editGuardian();
+        
+        return edit;
     }
     public Component getMainContent(){
         HorizontalLayout content = new HorizontalLayout();
@@ -105,22 +126,15 @@ public class ProfileGuardian extends VerticalLayout{
     }
     public void addNewChild(){
         Bingel newBingel = new Bingel();
-        newBingel.setParent(bingel);
+        newBingel.setGuardian(bingel);
         newBingel.setType(TypeOfBingel.STUDENT.getType());
         showEditor(newBingel);
     }
     public Component getMenu(){
         HorizontalLayout content = new HorizontalLayout();
-        
-        H3 fullName = new H3(bingel.getFirstName() + " " + bingel.getLastName() + " " + bingel.getOtherNames());
         Button btAddNew = new Button("New Child", VaadinIcon.PLUS.create(), event -> addNewChild());
-        Button editProfile = new Button("Edit Profile", VaadinIcon.EDIT.create(),
-                event -> getUI()
-                        .ifPresent(ui -> ui.navigate(EditGuardian.class)
-                            .ifPresent(edit -> edit.setBingel(bingel))
-                        )
-        );
-        content.add(fullName, btAddNew, editProfile);
+        
+        content.add(btAddNew);
         content.setDefaultVerticalComponentAlignment(Alignment.CENTER);
         
         return content;
